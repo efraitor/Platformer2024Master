@@ -73,6 +73,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        //Girar el Sprite del Jugador según su dirección de movimiento(velocidad)
+        //Si el jugador se mueve hacia la izquierda
+        if(_theRB.velocity.x < 0)
+        {
+            //No cambiamos la dirección del sprite
+            _theSR.flipX = false;
+        }
+        //Si el jugador se mueve hacia la derecha
+        else if(_theRB.velocity.x > 0)
+        {
+            //Cambiamos la dirección del sprite
+            _theSR.flipX = true;
+        }
+
         //ANIMACIONES DEL JUGADOR
         //Cambiamos el valor del parámetro del Animator "moveSpeed", dependiendo del valor en X de la velocidad del Rigidbody
         _anim.SetFloat("moveSpeed", Mathf.Abs(_theRB.velocity.x));//Mathf.Abs hace que un valor negativo sea positivo, lo que nos permite que al movernos a la izquierda también se anime esta acción
