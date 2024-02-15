@@ -6,9 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     //Velocidad del jugador
     public float moveSpeed;
-    //El rigidbody del jugador
-    //Barrabaja indica que la variable es privada
-    private Rigidbody2D _theRB;
     //Fuerza de salto del jugador
     public float jumpForce;
 
@@ -18,6 +15,16 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckPoint;
     //Referencia para detectar el Layer de suelo
     public LayerMask whatIsGround;
+    //Variable para saber si podemos hacer un doble salto
+    private bool _canDoubleJump;
+
+    //El rigidbody del jugador
+    //Barrabaja indica que la variable es privada
+    private Rigidbody2D _theRB;
+    //Referencia al Animator del jugador
+    private Animator _anim;
+    //Referencia al SpriteRenderer del jugador
+    private SpriteRenderer _theSR;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +32,10 @@ public class PlayerController : MonoBehaviour
         //Inicializamos el Rigidbody del jugador
         //GetComponent => Va al objeto donde está metido este código y busca el componente indicado
         _theRB = GetComponent<Rigidbody2D>();
+        //Inicializamos el Animator del jugador
+        _anim = GetComponent<Animator>();
+        //Inicializamos el SpriteRenderer del jugador
+        _theSR = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -45,7 +56,27 @@ public class PlayerController : MonoBehaviour
             {
                 //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
                 _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                //Una vez en el suelo, reactivamos la posibilidad de doble salto
+                _canDoubleJump = true;
+            }
+            //Si el jugador no está en el suelo
+            else
+            {
+                //Si canDoubleJump es verdadera
+                if(_canDoubleJump)
+                {
+                    //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
+                    _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                    //Hacemos que no se pueda volver a saltar de nuevo
+                    _canDoubleJump = false;
+                }
             }
         }
+
+        //ANIMACIONES DEL JUGADOR
+        //Cambiamos el valor del parámetro del Animator "moveSpeed", dependiendo del valor en X de la velocidad del Rigidbody
+        _anim.SetFloat("moveSpeed", Mathf.Abs(_theRB.velocity.x));//Mathf.Abs hace que un valor negativo sea positivo, lo que nos permite que al movernos a la izquierda también se anime esta acción
+        //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
+        _anim.SetBool("isGrounded", _isGrounded);
     }
 }
