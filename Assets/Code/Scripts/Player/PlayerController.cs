@@ -93,4 +93,11 @@ public class PlayerController : MonoBehaviour
         //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
         _anim.SetBool("isGrounded", _isGrounded);
     }
+
+    //Método para gestionar el KnockBack producido al jugador al hacerse daño
+    public void Knockback()
+    {
+        //Cambiamos el valor del parámetro del Animator "hurt"
+        _anim.SetTrigger("hurt");
+    }
 }

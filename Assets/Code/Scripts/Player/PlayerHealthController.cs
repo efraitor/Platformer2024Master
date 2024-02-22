@@ -11,12 +11,16 @@ public class PlayerHealthController : MonoBehaviour
 
     //Referencia al UIController
     private UIController _uIReference;
+    //Referencia al PlayerController
+    private PlayerController _pCReference;
 
     // Start is called before the first frame update
     void Start()
     {
         //Inicializamos la referencia de UIController
         _uIReference = GameObject.Find("Canvas").GetComponent<UIController>();
+        //Inicializamos la referencia al PlayerController
+        _pCReference = GetComponent<PlayerController>();
         //Inicializamos la vida del jugador
         currentHealth = maxHealth;
     }
@@ -41,6 +45,12 @@ public class PlayerHealthController : MonoBehaviour
 
             //Hacemos desaparecer de momento al jugador
             gameObject.SetActive(false);
+        }
+        //Si el jugador ha recibido daño pero no ha muerto
+        else
+        {
+            //Llamamos al método que hace que el jugador realice el KnockBack
+            _pCReference.Knockback();
         }
 
         //Actualizamos la UI (los corazones)
