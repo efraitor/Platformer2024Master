@@ -170,6 +170,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
+  knockBackForce: 8
 --- !u!95 &3853818495169609570
 Animator:
   serializedVersion: 5

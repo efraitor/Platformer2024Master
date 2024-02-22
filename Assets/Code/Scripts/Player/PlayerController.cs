@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     //Variable para saber si podemos hacer un doble salto
     private bool _canDoubleJump;
 
+    //Variable para la fuerza del KnockBack
+    public float knockBackForce;
+    //Variables para controlar el contador de tiempo de Knocback
+    public float knockBackLength; //Variable que nos sirve para rellenar el contador
+    private float knockBackCounter; //Contador de tiempo
+
+
     //El rigidbody del jugador
     //Barrabaja indica que la variable es privada
     private Rigidbody2D _theRB;
@@ -97,6 +104,8 @@ public class PlayerController : MonoBehaviour
     //Método para gestionar el KnockBack producido al jugador al hacerse daño
     public void Knockback()
     {
+        //Paralizamos al jugador en X y hacemos que salte en Y
+        _theRB.velocity = new Vector2(0f, knockBackForce);
         //Cambiamos el valor del parámetro del Animator "hurt"
         _anim.SetTrigger("hurt");
     }
