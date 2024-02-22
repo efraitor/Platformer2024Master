@@ -19,6 +19,8 @@ public class PlayerHealthController : MonoBehaviour
     private PlayerController _pCReference;
     //Referencia al SpriteRenderer del jugador
     private SpriteRenderer _sR;
+    //Referencia al LevelManager
+    private LevelManager _lReference;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,8 @@ public class PlayerHealthController : MonoBehaviour
         _pCReference = GetComponent<PlayerController>();
         //Inicializamos la referencia al SpriteRenderer
         _sR = GetComponent<SpriteRenderer>();
+        //Inicializamos la referencia al LevelManager
+        _lReference = GameObject.Find("LevelManager").GetComponent<LevelManager>();
         //Inicializamos la vida del jugador
         currentHealth = maxHealth;
     }
@@ -64,8 +68,10 @@ public class PlayerHealthController : MonoBehaviour
                 //Hacemos que la vida se ponga a cero si se queda en negativo
                 currentHealth = 0;
 
-                //Hacemos desaparecer de momento al jugador
-                gameObject.SetActive(false);
+                ////Hacemos desaparecer de momento al jugador
+                //gameObject.SetActive(false);
+                //Llamamos al método del LevelManager que respawnea al jugador
+                _lReference.RespawnPlayer();
             }
             //Si el jugador ha recibido daño pero no ha muerto
             else
