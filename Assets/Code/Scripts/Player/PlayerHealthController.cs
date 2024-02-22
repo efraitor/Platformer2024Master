@@ -9,9 +9,14 @@ public class PlayerHealthController : MonoBehaviour
     [HideInInspector] public int currentHealth;
     public int maxHealth;
 
+    //Referencia al UIController
+    private UIController _uIReference;
+
     // Start is called before the first frame update
     void Start()
     {
+        //Inicializamos la referencia de UIController
+        _uIReference = GameObject.Find("Canvas").GetComponent<UIController>();
         //Inicializamos la vida del jugador
         currentHealth = maxHealth;
     }
@@ -37,5 +42,8 @@ public class PlayerHealthController : MonoBehaviour
             //Hacemos desaparecer de momento al jugador
             gameObject.SetActive(false);
         }
+
+        //Actualizamos la UI (los corazones)
+        _uIReference.UpdateHealthDisplay();
     }
 }
