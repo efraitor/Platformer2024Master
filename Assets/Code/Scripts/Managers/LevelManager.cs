@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    
-
     //Variable de tiempo para la corrutina
     public float waitToRespawn;
 

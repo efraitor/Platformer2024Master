@@ -10,11 +10,16 @@ public class CheckpointController : MonoBehaviour
     //Referencia a la posición de reaparición del jugador
     public Vector3 spawnPoint;
 
+    //Referencia al jugador
+    private GameObject _player;
+
     // Start is called before the first frame update
     void Start()
     {
         //Buscamos todos los GameObjects que tengan el script asociado Checkpoint y los guardamos en nuestro array
         _checkpoints = GetComponentsInChildren<Checkpoint>(); //Buscamos en el objeto CheckpointController los scripts asociados a sus hijos
+        //Guardamos la posición inicial del jugador por si no hemos tocado ningún Checkpoint
+        spawnPoint = GameObject.Find("Player").transform.position;
     }
 
     // Update is called once per frame
