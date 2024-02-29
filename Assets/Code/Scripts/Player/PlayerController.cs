@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     //Fuerza de salto del jugador
     public float jumpForce;
+    //Fuerza de rebote del jugador
+    public float bounceForce;
 
     //Variable para saber si el jugador está en el suelo
     private bool _isGrounded;
@@ -127,5 +129,12 @@ public class PlayerController : MonoBehaviour
         _theRB.velocity = new Vector2(0f, knockBackForce);
         //Cambiamos el valor del parámetro del Animator "hurt"
         _anim.SetTrigger("hurt");
+    }
+
+    //Método para que el jugador rebote
+    public void Bounce()
+    {
+        //Impulsamos al jugador rebotando
+        _theRB.velocity = new Vector2(_theRB.velocity.x, bounceForce);
     }
 }
