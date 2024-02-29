@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region VARIABLES AND REFERENCES
     //Velocidad del jugador
     public float moveSpeed;
     //Fuerza de salto del jugador
@@ -34,7 +35,9 @@ public class PlayerController : MonoBehaviour
     private Animator _anim;
     //Referencia al SpriteRenderer del jugador
     private SpriteRenderer _theSR;
+    #endregion
 
+    #region UNITY METHODS
     // Start is called before the first frame update
     void Start()
     {
@@ -119,7 +122,9 @@ public class PlayerController : MonoBehaviour
         //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
         _anim.SetBool("isGrounded", _isGrounded);
     }
+    #endregion
 
+    #region OWN METHODS
     //Método para gestionar el KnockBack producido al jugador al hacerse daño
     public void Knockback()
     {
@@ -137,4 +142,5 @@ public class PlayerController : MonoBehaviour
         //Impulsamos al jugador rebotando
         _theRB.velocity = new Vector2(_theRB.velocity.x, bounceForce);
     }
+    #endregion
 }

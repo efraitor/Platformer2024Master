@@ -22,12 +22,6 @@ public class CheckpointController : MonoBehaviour
         spawnPoint = GameObject.Find("Player").transform.position;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Método para desactivar los checkpoints
     public void DeactivateCheckpoints()
     {

@@ -73,6 +73,5 @@ public class UIController : MonoBehaviour
                 //Cerramos el caso y salimos del Switch
                 break;
         }
-
     }
 }

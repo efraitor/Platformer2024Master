@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class StompBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //Método para detectar cuando un GO ha entrado en la zona de StompBox
     private void OnTriggerEnter2D(Collider2D collision)
     {
