@@ -13,6 +13,9 @@ public class PlayerHealthController : MonoBehaviour
     public float invincibleLength; //Me sirve para rellenar el contador
     private float _invincibleCounter; //Contador de tiempo
 
+    //Referencia al efecto de muerte del jugador
+    public GameObject deathEffect;
+
     //Referencia al UIController
     private UIController _uIReference;
     //Referencia al PlayerController
@@ -70,6 +73,10 @@ public class PlayerHealthController : MonoBehaviour
 
                 ////Hacemos desaparecer de momento al jugador
                 //gameObject.SetActive(false);
+                //Instanciamos el efecto de muerte del jugador
+                GameObject instance = Instantiate(deathEffect, transform.position, transform.rotation);
+                //Le decimos hacia donde miraba el jugador
+                instance.GetComponent<PlayerDeathEffect>().wasSeeLeft = GetComponent<PlayerController>().seeLeft;
                 //Llamamos al método del LevelManager que respawnea al jugador
                 _lReference.RespawnPlayer();
             }
