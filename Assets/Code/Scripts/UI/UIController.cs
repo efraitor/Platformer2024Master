@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //Para poder trabajar con elementos de la UI
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -10,8 +11,13 @@ public class UIController : MonoBehaviour
     //Referencias a los sprites que cambiarán al perder o ganar un corazón
     public Sprite heartFull, heartEmpty;
 
+    //Referencia al texto de las gemas de la UI
+    public TextMeshProUGUI gemText;
+
     //Referencia al Script que controla la vida del jugador
     private PlayerHealthController _pHReference;
+    //Referencia al LevelManager
+    private LevelManager _lMReference;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +26,10 @@ public class UIController : MonoBehaviour
         //Con GameObject.Find buscamos el objeto jugador en la escena
         //Con GetComponent obtenemos el código que necesitamos (el componente) del objeto jugador
         _pHReference = GameObject.Find("Player").GetComponent<PlayerHealthController>();
+        //Inicializamos la referencia al LevelManager
+        _lMReference = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        //Inicializamos el contador de gemas
+        UpdateGemCount();
     }
 
     //Método para actualizar la vida en la UI
@@ -73,5 +83,13 @@ public class UIController : MonoBehaviour
                 //Cerramos el caso y salimos del Switch
                 break;
         }
+    }
+
+    //Método para actualizar el contador de gemas
+    public void UpdateGemCount()
+    {
+        //Actualizar el número de gemas recogidas
+        //Cast -> convertimos el número entero en texto para que pueda ser representado en la UI
+        gemText.text = _lMReference.gemCollected.ToString();
     }
 }

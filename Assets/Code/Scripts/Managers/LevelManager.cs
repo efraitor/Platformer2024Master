@@ -7,6 +7,9 @@ public class LevelManager : MonoBehaviour
     //Variable de tiempo para la corrutina
     public float waitToRespawn;
 
+    //Variable para el contador de gemas
+    public int gemCollected;
+
     //Referencia al PlayerController
     private PlayerController _pCReference;
     //Referencia al CheckpointController
