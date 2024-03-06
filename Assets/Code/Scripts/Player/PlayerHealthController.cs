@@ -96,4 +96,20 @@ public class PlayerHealthController : MonoBehaviour
         }
        
     }
+
+    //Método para curar al jugador
+    public void HealPlayer()
+    {
+        //Curamos al jugador a su vida máxima
+        //currentHealth = maxHealth;
+
+        //Sumamos 1 a la vida del jugador
+        currentHealth++;
+        //Si la vida actual es mayor que la vida máxima
+        if (currentHealth > maxHealth)
+            //Hacemos que la vida del jugador vuelva a la máxima
+            currentHealth = maxHealth;
+        //Actualizamos la UI (los corazones)
+        _uIReference.UpdateHealthDisplay();
+    }
 }

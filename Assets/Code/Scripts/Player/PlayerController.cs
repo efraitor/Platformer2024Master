@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour
                 {
                     //El jugador salta, manteniendo su velocidad en X, y aplicamos la fuerza de salto
                     _theRB.velocity = new Vector2(_theRB.velocity.x, jumpForce);
+                    //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+                    AudioManager.audioMReference.PlaySFX(10);
                     //Una vez en el suelo, reactivamos la posibilidad de doble salto
                     _canDoubleJump = true;
                 }
