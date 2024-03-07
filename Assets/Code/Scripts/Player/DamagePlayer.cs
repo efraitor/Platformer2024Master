@@ -11,6 +11,8 @@ public class DamagePlayer : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             //Debug.Log("Hit");
+            //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+            AudioManager.audioMReference.PlaySFX(9);
             //Sacamos del jugador el método que le hace daño
             collision.GetComponent<PlayerHealthController>().DealWithDamage();
         }

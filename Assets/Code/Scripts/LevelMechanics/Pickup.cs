@@ -45,6 +45,8 @@ public class Pickup : MonoBehaviour
                 _uIReference.UpdateGemCount();
                 //Le decimos que el objeto ha sido recogido
                 _isCollected = true;
+                //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+                AudioManager.audioMReference.PlaySFX(6);
                 //Instanciamos el efecto de recogida
                 Instantiate(pickupEffect, transform.position, transform.rotation);
                 //Destruimos el objeto
@@ -60,6 +62,8 @@ public class Pickup : MonoBehaviour
                     _pHReference.HealPlayer();
                     //Le decimos que el objeto ha sido recogido
                     _isCollected = true;
+                    //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+                    AudioManager.audioMReference.PlaySFX(7);
                     //Instanciamos el efecto de recogida
                     Instantiate(pickupEffect, transform.position, transform.rotation);
                     //Destruimos el objeto

@@ -33,6 +33,8 @@ public class Checkpoint : MonoBehaviour
             _cReference.DeactivateCheckpoints();
             //Cambiamos el sprite a Checkpoint activo
             _sR.sprite = cpOn;
+            //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+            AudioManager.audioMReference.PlaySFX(11);
             //Guardamos la posición de este Checkpoint para hacer el Spawn
             _cReference.SetSpawnPoint(transform.position);
         }

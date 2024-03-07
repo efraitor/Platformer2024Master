@@ -29,6 +29,8 @@ public class KillPlayer : MonoBehaviour
         {
             //Ponemos las vidas del jugador a 0
             _pHReference.currentHealth = 0;
+            //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+            AudioManager.audioMReference.PlaySFX(8);
             //Actualizamos las vidas en la UI
             _uIReference.UpdateHealthDisplay();
             //Respawneamos al jugador

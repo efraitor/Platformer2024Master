@@ -73,6 +73,8 @@ public class PlayerHealthController : MonoBehaviour
 
                 ////Hacemos desaparecer de momento al jugador
                 //gameObject.SetActive(false);
+                //Llamamos al método del Singleton de AudioManager que reproduce el sonido
+                AudioManager.audioMReference.PlaySFX(8);
                 //Instanciamos el efecto de muerte del jugador
                 GameObject instance = Instantiate(deathEffect, transform.position, transform.rotation);
                 //Le decimos hacia donde miraba el jugador
