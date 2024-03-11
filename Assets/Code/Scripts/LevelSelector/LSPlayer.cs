@@ -42,6 +42,30 @@ public class LSPlayer : MonoBehaviour
                     //Cambiaríamos el punto actual por el de la izquierda
                     SetNextPoint(currentPoint.left);
             }
+            //Si pulsamos el botón de movimiento vertical hacia arriba (en el caso de un joystick a más de la mitad de su recorrido)
+            if (Input.GetAxisRaw("Vertical") > .5f)
+            {
+                //Si hay un punto hacia arriba desde el que estamos
+                if (currentPoint.up != null)//Osea si la referencia a este punto no está vacía
+                    //Cambiaríamos el punto actual por el de arriba
+                    SetNextPoint(currentPoint.up);
+            }
+            //Si pulsamos el botón de movimiento vertical hacia abajo (en el caso de un joystick a más de la mitad de su recorrido)
+            if (Input.GetAxisRaw("Vertical") < -.5f)
+            {
+                //Si hay un punto hacia abajo desde el que estamos
+                if (currentPoint.down != null)//Osea si la referencia a este punto no está vacía
+                    //Cambiaríamos el punto actual por el de abajo
+                    SetNextPoint(currentPoint.down);
+            }
+
+            //Si el MapPoint actual es un nivel
+            if (currentPoint.isLevel)
+            {
+                //Si pulsamos el botón de la barra espaciadora
+                if (Input.GetButtonDown("Jump"))
+                    Debug.Log("Cargamos el nivel");
+            }
         }
     }
 
