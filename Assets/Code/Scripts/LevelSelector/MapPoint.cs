@@ -8,6 +8,8 @@ public class MapPoint : MonoBehaviour
     public MapPoint up, right, down, left;
     //Variable para conocer si este MapPoint es un nivel
     public bool isLevel;
+    //Variable para conocer el nivel que queremos cargar
+    public string levelToLoad;
 
     // Start is called before the first frame update
     void Start()

@@ -11,7 +11,8 @@ public class LSManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Inicializamos la referencia al script del jugador
+        _lS = GameObject.Find("LSPlayer").GetComponent<LSPlayer>();
     }
 
     // Update is called once per frame
@@ -23,7 +24,8 @@ public class LSManager : MonoBehaviour
     //Método que carga el nivel
     public void LoadLevel()
     {
-
+        //Llamamos a la corrutina que carga el nivel
+        StartCoroutine(LoadLevelCo());
     }
 
     //La corrutina para cargar un nivel
@@ -32,6 +34,6 @@ public class LSManager : MonoBehaviour
         //Esperamos un tiempo determinado
         yield return new WaitForSeconds(1f);
         //Cargamos el nivel al que queremos ir
-        SceneManager.LoadScene()
+        SceneManager.LoadScene(_lS.currentPoint.levelToLoad);
     }
 }
