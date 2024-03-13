@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; //Librería para poder usar las escenas
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class LevelManager : MonoBehaviour
 
     //Variable para el contador de gemas
     public int gemCollected;
+
+    //Variable para guardar el nombre del nivel al queremos ir
+    public string levelToLoad;
 
     //Referencia al PlayerController
     private PlayerController _pCReference;
@@ -52,5 +56,21 @@ public class LevelManager : MonoBehaviour
         _pHReference.currentHealth = _pHReference.maxHealth;
         //Actualizamos la UI
         _uIReference.UpdateHealthDisplay();
+    }
+
+    //Método para terminar un nivel
+    public void ExitLevel()
+    {
+        //Llamamos a la corrutina de salir del nivel
+        StartCoroutine(ExitLevelCo());
+    }
+    
+    //Corrutina de terminar el nivel
+    public IEnumerator ExitLevelCo()
+    {
+        //Esperamos un tiempo determinado
+        yield return new WaitForSeconds(1.5f);
+        //Ir a la pantalla de carga o al selector de niveles
+        SceneManager.LoadScene(levelToLoad);
     }
 }
