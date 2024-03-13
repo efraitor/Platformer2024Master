@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 192701280631576109}
   - component: {fileID: 5418771947769245806}
   - component: {fileID: 1121312011145540407}
+  - component: {fileID: 8354923129535138266}
   m_Layer: 0
   m_Name: LSCanvas
   m_TagString: Untagged
@@ -955,6 +956,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8354923129535138266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7973297318723996074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02ffc333d0f8ca241b0b3bc9064fb420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeScreen: {fileID: 5161784890764143751}
+  fadeSpeed: 3
 --- !u!1 &8965983952462806197
 GameObject:
   m_ObjectHideFlags: 0
