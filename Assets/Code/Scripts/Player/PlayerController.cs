@@ -132,6 +132,25 @@ public class PlayerController : MonoBehaviour
         //Cambiamos el valor del parámetro del Animator "isGrounded", dependiendo del valor de la booleana del código "_isGrounded"
         _anim.SetBool("isGrounded", _isGrounded);
     }
+
+    //Método para conocer cuando un objeto entra en colisión con el jugador
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Si el que colisiona contra el jugador es una plataforma
+        if (collision.gameObject.CompareTag("Platform"))
+            //El jugador pasa a ser hijo de la plataforma
+            transform.parent = collision.transform;
+    }
+
+    //Método para conocer cuando dejamos de colisionar contra un objeto
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //Si el objeto con el que dejamos de colisionar es una plataforma
+        if (collision.gameObject.CompareTag("Platform"))
+            //El jugador deja de tener padre
+            transform.parent = null;
+    }
+
     #endregion
 
     #region OWN METHODS
