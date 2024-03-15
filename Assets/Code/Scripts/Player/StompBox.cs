@@ -15,7 +15,7 @@ public class StompBox : MonoBehaviour
             //Llamamos al método que elimina al enemigo ya que podemos acceder a sus propiedades a través de su Collider
             collision.gameObject.GetComponentInParent<EnemyDeath>().EnemyDeathController();
             //Llamamos al método que hace rebotar al jugador que está en el objeto padre
-            GetComponentInParent<PlayerController>().Bounce();
+            GetComponentInParent<PlayerController>().Bounce(GetComponentInParent<PlayerController>().bounceForce);
         }
     }
 }

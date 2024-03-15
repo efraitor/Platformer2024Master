@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
     //Variable para conocer hacia donde mira el jugador
     public bool seeLeft = true;
 
+    //Variable para saber cuando el jugador puede interactuar con los objetos
+    public bool canInteract = false;
+
+
     //El rigidbody del jugador
     //Barrabaja indica que la variable es privada
     private Rigidbody2D _theRB;
@@ -166,7 +170,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //Método para que el jugador rebote
-    public void Bounce()
+    public void Bounce(float bounceForce)
     {
         //Impulsamos al jugador rebotando
         _theRB.velocity = new Vector2(_theRB.velocity.x, bounceForce);
