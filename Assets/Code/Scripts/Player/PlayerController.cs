@@ -117,18 +117,8 @@ public class PlayerController : MonoBehaviour
         }
         //Si por el contrario el contador de KnockBack todavía no está vacío
         else
-        {
             //Hacemos decrecer el contador en 1 cada segundo
             _knockBackCounter -= Time.deltaTime;
-            //Si el jugador mira a la izquierda
-            if (!_theSR.flipX)
-                //Aplicamos un pequeño empuje hacia la derecha
-                _theRB.velocity = new Vector2(knockBackForce, _theRB.velocity.y);
-            //Si el jugador mira a la derecha
-            else
-                //Aplicamos un pequeño empuje hacia la izquierda
-                _theRB.velocity = new Vector2(-knockBackForce, _theRB.velocity.y);
-        }
         
         //ANIMACIONES DEL JUGADOR
         //Cambiamos el valor del parámetro del Animator "moveSpeed", dependiendo del valor en X de la velocidad del Rigidbody
@@ -165,6 +155,14 @@ public class PlayerController : MonoBehaviour
         _knockBackCounter = knockBackLength;
         //Paralizamos al jugador en X y hacemos que salte en Y
         _theRB.velocity = new Vector2(0f, knockBackForce);
+        //Si el jugador mira a la izquierda
+        if (!_theSR.flipX)
+            //Aplicamos un pequeño empuje hacia la derecha
+            _theRB.velocity = new Vector2(knockBackForce, _theRB.velocity.y);
+        //Si el jugador mira a la derecha
+        else
+            //Aplicamos un pequeño empuje hacia la izquierda
+            _theRB.velocity = new Vector2(-knockBackForce, _theRB.velocity.y);
         //Cambiamos el valor del parámetro del Animator "hurt"
         _anim.SetTrigger("hurt");
     }

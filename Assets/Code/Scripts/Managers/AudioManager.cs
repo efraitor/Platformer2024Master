@@ -30,4 +30,13 @@ public class AudioManager : MonoBehaviour
         //Reproducir el sonido pasado por parámetro
         soundEffects[soundToPlay].Play();
     }
+
+    //Método para reproducir la música del Boss Final
+    public void PlayBossMusic()
+    {
+        //Paramos la música de fondo
+        bgm.Stop();
+        //Reproducimos la música del jefe
+        bossMusic.Play();
+    }
 }
