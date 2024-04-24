@@ -21,6 +21,14 @@ public class BossTankController : MonoBehaviour
     public Transform leftPoint, rightPoint;
     //Para conocer hacia donde se mueve
     private bool _movingRight;
+    //Referencia a la mina que deja caer el enemigo
+    public GameObject mine;
+    //Referencia al punto de caída de las minas
+    public Transform minePoint;
+    //Tiempo entre minas
+    public float timeBetweenMines;
+    //Contador de tiempo entre minas
+    private float _mineCounter;
 
     //Atributo de las variables que genera un encabezado en el editor de Unity
     [Header("Shooting")]
@@ -45,9 +53,11 @@ public class BossTankController : MonoBehaviour
     //Vida del enemigo
     public int health = 3;
     //Referencia al efecto de explosión del enemigo y a los objetos que aparecerán tras su muerte
-    public GameObject explosion;
+    public GameObject explosion, winPlatform;
     //Variable para conocer si el enemigo ha sido derrotado
     private bool _isDefeated;
+    //Variables para controlar el tiempo entre disparos y entre minas
+    public float shotSpeedUp, mineSpeedUp;
 
 
     [Header("References")]
@@ -55,12 +65,16 @@ public class BossTankController : MonoBehaviour
     public Transform theBoss;
     //Referencia al Animator del jefe final
     private Animator _bAnim;
+    //Referencia al AudioManager
+    private AudioManager _aM;
 
     // Start is called before the first frame update
     void Start()
     {
         //Inicializamos el Animator del jefe final
         _bAnim = GetComponentInChildren<Animator>();
+        //Inicializamos el AudioManager
+        _aM = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         //Inicializamos el estado en el que empieza el jefe final
         currentState = bossStates.shooting;//currentState = bossStates.shooting <=> currentState = 0
     }
@@ -102,6 +116,8 @@ public class BossTankController : MonoBehaviour
                     {
                         //El jefe final pasaría al estado de movimiento
                         currentState = bossStates.moving;
+                        //Reiniciamos el contador de tiempo entre minas
+                        _mineCounter = 0;
 
                         //Si el enemigo ha sido derrotado
                         if (_isDefeated)
@@ -110,6 +126,10 @@ public class BossTankController : MonoBehaviour
                             theBoss.gameObject.SetActive(false);
                             //Instanciamos el efecto de explosión
                             Instantiate(explosion, theBoss.position, theBoss.rotation);
+                            //Activamos los objetos tras derrotar al jefe final
+                            winPlatform.SetActive(true);
+                            //Llamamos al método que restaura la música del juego
+                            _aM.StopBossMusic();
                             //El enemigo pasa al estado de muerte
                             currentState = bossStates.ended;
                         }
@@ -150,6 +170,18 @@ public class BossTankController : MonoBehaviour
                         EndMovement();
                     }
                 }
+
+                //Hacemos decrecer el contador de tiempo entre minas
+                _mineCounter -= Time.deltaTime;
+                //Si el contador de tiempo entre minas se ha vaciado
+                if(_mineCounter <= 0)
+                {
+                    //Reiniciamos el contador de tiempo entre minas
+                    _mineCounter = timeBetweenMines;
+                    //Instanciamos una mina
+                    Instantiate(mine, minePoint.position, minePoint.rotation);
+                }
+
                 break;
             //En el caso en el que currentState = 3
             case bossStates.ended:
@@ -176,12 +208,33 @@ public class BossTankController : MonoBehaviour
         //Activamos el trigger de la animación de daño
         _bAnim.SetTrigger("Hit");
 
+        //Busca y meter en este momento todas las minas que ya hayan en la escena en un array
+        BossTankMine[] _mines = FindObjectsOfType<BossTankMine>();
+        //Si el array de minas contiene alguna mina
+        if(_mines.Length > 0)
+        {
+            //Recorremos todo el array de minas
+            foreach(BossTankMine foundMine in _mines)
+            {
+                //Llamamos al método que explota las minas
+                foundMine.Explode();
+            }
+        }
+
         //Hacemos que el enemigo pierda una vida
         health--;
         //Si no le quedan vidas al enemigo
         if (health <= 0)
             //El enemigo ha sido derrotado
             _isDefeated = true;
+        //Si no ha sido derrotado
+        else
+        {
+            //Disminuimos el tiempo entre disparos
+            timeBetweenShots /= shotSpeedUp;
+            //Disminuimos el tiempo entre minas
+            timeBetweenMines /= mineSpeedUp;
+        }
     }
 
     //Método para finalizar el movimiento del jefe final

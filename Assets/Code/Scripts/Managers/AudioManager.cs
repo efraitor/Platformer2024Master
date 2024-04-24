@@ -39,4 +39,13 @@ public class AudioManager : MonoBehaviour
         //Reproducimos la música del jefe
         bossMusic.Play();
     }
+
+    //Método para reproducir la música después del Boss Final
+    public void StopBossMusic()
+    {
+        //Paramos la música del jefe
+        bossMusic.Stop();
+        //Reproducimos la música de fondo
+        bgm.Play();
+    }
 }
