@@ -1551,6 +1551,7 @@ MonoBehaviour:
   bgm: {fileID: 2496060034158875814}
   levelEndMusic: {fileID: 653300125780919438}
   bossMusic: {fileID: 2307474084432108930}
+  bus: {fileID: 6912498099473603439}
 --- !u!1 &4516154732375867169
 GameObject:
   m_ObjectHideFlags: 0

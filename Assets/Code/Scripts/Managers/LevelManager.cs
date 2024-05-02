@@ -33,6 +33,15 @@ public class LevelManager : MonoBehaviour
         _uIReference = GameObject.Find("Canvas").GetComponent<UIController>();
         //Inicializamos la referencia al PlayerHealthController
         _pHReference = GameObject.Find("Player").GetComponent<PlayerHealthController>();
+        //Vemos si estamos en la escena del autobús
+        if (SceneManager.GetActiveScene().name == "LoadScene")
+        {
+            //Llamamos a la corrutina de salir del nivel de carga
+            LoadLevelExit();
+            //Llamamos a la música del autobús
+            AudioManager.audioMReference.bus.Play();
+        }
+           
     }
 
     //Método para respawnear al jugador cuando muere
@@ -68,6 +77,38 @@ public class LevelManager : MonoBehaviour
     //Corrutina de terminar el nivel
     public IEnumerator ExitLevelCo()
     {
+        //Paramos los inputs del jugador
+        _pCReference.stopInput = true;
+        //Paramos el movimiento del jugador
+        _pCReference.StopPlayer();
+        //Hacemos el método que pone la música del final del nivel
+        AudioManager.audioMReference.LevelEndMusic();
+        //Mostramos el cartel de haber finalizado el nivel
+        _uIReference.levelCompleteText.gameObject.SetActive(true);
+        //Esperamos un tiempo determinado
+        yield return new WaitForSeconds(1.5f);
+        //Hacemos fundido a negro
+        _uIReference.FadeToBlack();
+        //Esperamos un tiempo determinado
+        yield return new WaitForSeconds(1.5f);
+        //Ir a la pantalla de carga o al selector de niveles
+        SceneManager.LoadScene(levelToLoad);
+    }
+
+    //Método para salir del nivel de carga
+    public void LoadLevelExit()
+    {
+        //Llamamos a la corrutina que nos saca del nivel de carga
+        StartCoroutine(LoadLevelExitCo());
+    }
+
+    //Corrutina para salir del nivel de carga
+    IEnumerator LoadLevelExitCo()
+    {
+        //Esperamos un tiempo determinado
+        yield return new WaitForSeconds(3.5f);
+        //Hacemos fundido a negro
+        _uIReference.FadeToBlack();
         //Esperamos un tiempo determinado
         yield return new WaitForSeconds(1.5f);
         //Ir a la pantalla de carga o al selector de niveles
